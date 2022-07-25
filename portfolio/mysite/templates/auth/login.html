@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block forms %}
+      <div id="wrapper">
+      로그인
+      </div>
+      <div>
+        <form method="POST">
+          {% csrf_token %}
+          <p>
+            <label for="username">ID: </label>
+            <input id="username" type="text" name="username">
+          </p>
+          <p>
+            <label for="password">비밀번호: </label>
+            <input id="password" type="password" name="password">
+          </p>
+          <input type="button" value="가입하기" onclick="javascript:login();">
+        </form>
+      </div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+
+function get_token(username, password){
+  
+}
+
+function login(){
+  var formData = new FormData();
+  formData.append("username", $("#username").val());
+  formData.append("password", $("#password").val());
+
+  $.ajax({
+    url: "{% url 'api-user-login' %}",
+    method: "POST",
+    enctype:'multipart/form-data',
+    dataType:'json',
+    processData:false,
+    contentType:false,
+    data:formData,
+    headers:{
+      "api-key":$("#api-key").val()
+    },
+    success: function (data) {
+        console.log("completed!");
+    },
+    error: function (error) {
+        alert("failed! ")
+    }
+  });
+}
+</script>
+
+{% endblock %}

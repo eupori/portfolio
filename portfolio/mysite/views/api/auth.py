@@ -57,7 +57,7 @@ def get_payload(request):
     except ValidationError as v:
         return None
 
-class UserRegistrationAPIViw(GenericAPIView):
+class UserRegistrationAPIView(GenericAPIView):
     permission_classes = [HasAPIKey,]
     parser_classes = [MultiPartParser,]
 

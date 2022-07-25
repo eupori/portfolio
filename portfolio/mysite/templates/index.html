@@ -1,1 +1,31 @@
-hello world!
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>API 테스트</title>
+  </head>
+  <body>
+    <div>
+      <div>
+        <a href="{% url 'user-signup-view' %}">회원가입</a>
+      </div>
+        <a href="{% url 'user-login-view' %}">로그인</a>
+      </div>
+      <div>
+        <a href="{% url 'user-logout-view' %}">로그아웃</a>
+      </div>
+      <div>
+        <a href="{% url 'user-token-view' %}">토큰발급</a>
+      </div>
+      <div>
+        <a href="{% url 'user-token-verify-view' %}">토큰겁증</a>
+      </div>
+      <div>
+        <a href="{% url 'user-token-refresh-view' %}">토큰재발급</a>
+      </div>
+      <div>
+        <a href="{% url 'user-follow-view' %}">팔로우</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block forms %}
+      <div id="wrapper">
+      토큰발급(로그인)
+      </div>
+      <div>
+        <form method="POST">
+          {% csrf_token %}
+          <p>
+            <label for="username">ID: </label>
+            <input id="username" type="text" name="username">
+          </p>
+          <p>
+            <label for="password">비밀번호: </label>
+            <input id="password" type="password" name="password">
+          </p>
+          <input type="button" value="로그인" onclick="javascript:get_token();">
+        </form>
+      </div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+
+function get_token(){
+  var formData = new FormData();
+  formData.append("username", $("#username").val());
+  formData.append("password", $("#password").val());
+
+  $.ajax({
+    url: "{% url 'token-obtain-pair' %}",
+    method: "POST",
+    enctype:'multipart/form-data',
+    dataType:'json',
+    processData:false,
+    contentType:false,
+    data:formData,
+    success: function (data) {
+        localStorage.setItem('username', $("#username").val());
+        localStorage.setItem('access', data.access);
+        localStorage.setItem('refresh', data.refresh);
+        console.log(data)
+    },
+    error: function (error) {
+        alert("아이디 및 비밀번호를 확인하세요. ")
+    }
+  });
+}
+</script>
+
+{% endblock %}

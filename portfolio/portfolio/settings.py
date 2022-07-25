@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# API KEY header 변경
+API_KEY_CUSTOM_HEADER = "HTTP_API_KEY"
+
 
 # Application definition
 

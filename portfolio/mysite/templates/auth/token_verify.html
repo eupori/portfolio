@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block forms %}
+      <div id="wrapper">
+      회원가입
+      </div>
+      <div>
+        <form method="POST">
+          {% csrf_token %}
+          <p>
+            <label for="username">ID: </label>
+            <input id="username" type="text" name="username">
+          </p>
+          <p>
+            <label for="password1">비밀번호: </label>
+            <input id="password1" type="password" name="password1">
+            <button type="button" id="btn_view_password1_true" onclick="javascript:view_password('password1',true);">비밀번호 보기</button>
+            <button type="button" id="btn_view_password1_false" onclick="javascript:view_password('password1',false);" style="display:none;">비밀번호 숨기기</button>
+          </p>
+          <p>
+            <label for="password2">비밀번호:확인 </label>
+            <input id="password2" type="password" name="password2">
+            <button type="button" id="btn_view_password2_true" onclick="javascript:view_password('password2',true);">비밀번호 보기</button>
+            <button type="button" id="btn_view_password2_false" onclick="javascript:view_password('password2',false);" style="display:none;">비밀번호 숨기기</button>
+          </p>
+          <input type="button" value="가입하기" onclick="javascript:signup();">
+        </form>
+      </div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+
+function signup(){
+  var formData = new FormData();
+  formData.append("username", $("#username").val());
+  formData.append("password1", $("#password1").val());
+  formData.append("password2", $("#password2").val());
+
+  if(confirm("가입하시겠습니까?")){
+    $.ajax({
+      url: "{% url 'api-user-signup' %}",
+      method: "POST",
+      enctype:'multipart/form-data',
+      dataType:'json',
+      processData:false,
+      contentType:false,
+      data:formData,
+      headers:{
+        "api-key":$("#api-key").val()
+      },
+      success: function (data) {
+          console.log("completed!");
+      },
+      error: function (error) {
+          alert("failed! ")
+      }
+    });
+  }
+}
+
+function view_password(target, flag){
+  if(flag){
+    $("#"+target).attr("type","text")
+    $("#btn_view_"+target+"_true").css("display","none")
+    $("#btn_view_"+target+"_false").css("display","inline-block")
+  }else{
+    $("#"+target).attr("type","password")
+    $("#btn_view_"+target+"_true").css("display","inline-block")
+    $("#btn_view_"+target+"_false").css("display","none")
+  }
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+version: "3"
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    volumes:
+      - ../portfolio/:/app/
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    command: bash -c "
+       python manage.py migrate &&
+       python manage.py collectstatic --noinput &&
+       gunicorn portfolio.wsgi:application --bind 0.0.0.0:8000"
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./../portfolio/static:/static
+      - ./compose/nginx:/etc/nginx/conf.d
+    ports:
+      - 15002:80
+    depends_on:
+      - web

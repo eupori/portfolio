@@ -25,3 +25,9 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root':settings.MEDIA_ROOT})
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include('debug_toolbar.urls')),
+    ]

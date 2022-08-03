@@ -10,3 +10,6 @@ class User(AbstractUser):
 class Token(models.Model):
     token = models.CharField(_("토큰"), max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Crawling(models.Model):
+    image = models.ImageField(_("이미지"), upload_to="media", max_length=1000)

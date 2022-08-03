@@ -8,5 +8,7 @@ markdown==3.4.1
 django-filter==22.1
 drf-yasg==1.21.3
 raven==6.10.0
+Pillow==9.2.0
 gunicorn
+django-debug-toolbar==3.5.0
 
